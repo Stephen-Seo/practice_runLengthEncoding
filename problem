@@ -1,1 +1,12 @@
 programmingpraxis.com February 9, 2021
+Alexey Grigorev says:
+
+    Most candidates cannot solve this interview problem:
+
+    Input: “aaaabbbcca”
+
+    Output: [(“a”,4), (“b”,3), (“c”,2), (“a”,1)]
+
+    Write a function that converts the input to the output. I ask it in the screening inverview and give it 25 minutes. How would you solve it?
+
+Your task is to write the requested function. When you are finished, you are welcome to read or run a suggested solution, or to post your own solution or discuss the exercise in the comments below.
