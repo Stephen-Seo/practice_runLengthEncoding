@@ -2,27 +2,49 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "map.h"
-
 /*
- * Requires keeping track of how many times each character is seen. It looks
- * like it may require a map structure due to the fact that the given list is
- * not necessarily in order.
+ * Requires keeping track of how many times each character is seen.
+ * Must keep track of given order, and a map is not necessary.
  */
+
+#define INIT_ITEM_SIZE 16
+
+typedef struct Item {
+    char key;
+    int value;
+} Item;
 
 int main(int argc, char **argv) {
     if(argc != 2) {
         return 1;
     }
 
-    CharMap map = initMap();
+    Item *items = calloc(INIT_ITEM_SIZE, sizeof(Item));
+    size_t size = 0;
+    size_t capacity = INIT_ITEM_SIZE;
 
-    for(char *str = argv[1]; *str != 0; ++str) {
-        insertMap(map, *str);
+    for(const char *s = argv[1]; *s != 0; ++s) {
+        if(size > 0 && items[size-1].key == *s) {
+            items[size-1].value += 1;
+        } else {
+            if(size == capacity) {
+                Item *new_items = calloc(capacity * 2, sizeof(Item));
+                memcpy(new_items, items, size * sizeof(Item));
+                free(items);
+                items = new_items;
+                capacity *= 2;
+            }
+
+            items[size].key = *s;
+            items[size].value = 1;
+            ++size;
+        }
     }
 
-    printMapContents(map);
+    for(size_t i = 0; i < size; ++i) {
+        printf("%c count of %d\n", items[i].key, items[i].value);
+    }
 
-    cleanupMap(map);
+    free(items);
     return 0;
 }
