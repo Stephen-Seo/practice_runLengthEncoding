@@ -1,4 +1,4 @@
-SOURCES = src/main.c src/map.c
+SOURCES = src/main.c
 OBJECTS = $(subst .c,.o,$(SOURCES))
 
 COMMON_FLAGS = -Wall -Wextra -Wpedantic
